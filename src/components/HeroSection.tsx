@@ -210,7 +210,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenDossier, onNavig
               {/* Bottom metadata strip */}
               <div className="flex items-center justify-between pt-3 px-1 text-xs text-[#697570] font-mono">
                 <span>FILE: character-hero.webp</span>
-                <span>ORIGIN: 0xNULL_MEMEAI</span>
+                <span>ORIGIN: TBD</span>
               </div>
             </div>
           </div>
