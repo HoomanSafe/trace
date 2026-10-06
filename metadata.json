@@ -1,0 +1,6 @@
+{
+  "name": "TRACE — MEMEAI Stealth Mascot",
+  "description": "Original stealth character design for the MEMEAI universe. Complete master model sheets, silhouette verification, eye identity tests, interactive meme engine, and vector brand assets.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
