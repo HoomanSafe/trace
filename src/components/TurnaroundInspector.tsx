@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { TURNAROUND_VIEWS, ASSET_PATHS } from '../data/characterData';
 import { NullCrestSymbol, TraceVectorAvatar } from './SvgAssets';
+import { TraceImage } from './TraceImage';
 import { RotateCw, Compass, CheckCircle2, Ruler, Eye, Shield } from 'lucide-react';
 
 export const TurnaroundInspector: React.FC = () => {
@@ -115,25 +116,22 @@ export const TurnaroundInspector: React.FC = () => {
                   <TraceVectorAvatar size={340} glow={true} />
                 </div>
               ) : selectedViewId === 'three_quarter' ? (
-                <img
+                <TraceImage
                   src={ASSET_PATHS.hero}
                   alt="3/4 View Model Reference"
-                  referrerPolicy="no-referrer"
-                  className="w-full h-full object-cover rounded-lg shadow-2xl"
+                  className="w-full h-full rounded-lg shadow-2xl"
                 />
               ) : selectedViewId === 'profile' ? (
-                <img
+                <TraceImage
                   src={ASSET_PATHS.portrait}
                   alt="Profile View Model Reference"
-                  referrerPolicy="no-referrer"
-                  className="w-full h-full object-cover rounded-lg shadow-2xl"
+                  className="w-full h-full rounded-lg shadow-2xl"
                 />
               ) : (
-                <img
+                <TraceImage
                   src={ASSET_PATHS.lookback}
                   alt="Rear / Walk Away Model Reference"
-                  referrerPolicy="no-referrer"
-                  className="w-full h-full object-cover rounded-lg shadow-2xl"
+                  className="w-full h-full rounded-lg shadow-2xl"
                 />
               )}
 

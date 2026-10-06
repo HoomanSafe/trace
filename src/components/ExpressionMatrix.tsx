@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { CHARACTER_EXPRESSIONS, ASSET_PATHS } from '../data/characterData';
 import { TraceVectorAvatar } from './SvgAssets';
+import { TraceImage } from './TraceImage';
 import { Smile, MessageSquare, Sparkles, CheckCircle2 } from 'lucide-react';
 
 export const ExpressionMatrix: React.FC = () => {
@@ -70,14 +71,13 @@ export const ExpressionMatrix: React.FC = () => {
             {/* Visual Portrait Rendering */}
             <div className="lg:col-span-5 bg-[#090A0A] border border-[#1C201F] rounded-xl p-6 flex flex-col items-center justify-center relative min-h-[340px]">
               <div className="relative w-56 h-56 rounded-xl overflow-hidden border border-[#28302D] shadow-2xl">
-                <img
+                <TraceImage
                   src={ASSET_PATHS.portrait}
                   alt={activeExp.name}
-                  referrerPolicy="no-referrer"
-                  className="w-full h-full object-cover"
+                  className="w-full h-full"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#090A0A] via-transparent to-transparent opacity-60" />
-                <div className="absolute bottom-3 left-3 right-3 text-center">
+                <div className="absolute inset-0 bg-gradient-to-t from-[#090A0A] via-transparent to-transparent opacity-60 pointer-events-none" />
+                <div className="absolute bottom-3 left-3 right-3 text-center pointer-events-none">
                   <span className="px-2.5 py-1 bg-[#090A0A]/90 backdrop-blur-md rounded border border-[#0DF569]/30 text-xs font-mono text-[#0DF569]">
                     {activeExp.quote}
                   </span>

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { ASSET_PATHS, CHARACTER_NAME } from '../data/characterData';
 import { TraceVectorAvatar, NullCrestSymbol } from './SvgAssets';
+import { TraceImage } from './TraceImage';
 import { CheckCircle2, AlertCircle, Eye, ShieldCheck, Sparkles, Scale, Maximize2 } from 'lucide-react';
 
 export const QualityTests: React.FC = () => {
@@ -282,7 +283,7 @@ export const QualityTests: React.FC = () => {
                     <div className="bg-[#111413] border border-[#1C201F] p-4 rounded-xl max-w-sm w-full space-y-3">
                       <div className="flex items-center gap-3">
                         <div className="w-16 h-16 rounded-full overflow-hidden border-2 border-[#0DF569] shrink-0">
-                          <img src={ASSET_PATHS.portrait} alt="X Avatar" className="w-full h-full object-cover" />
+                          <TraceImage src={ASSET_PATHS.portrait} alt="X Avatar" className="w-full h-full" />
                         </div>
                         <div>
                           <div className="flex items-center gap-1.5">
@@ -300,7 +301,7 @@ export const QualityTests: React.FC = () => {
                     <div className="bg-[#161918] border border-[#222A26] p-4 rounded-xl max-w-sm w-full space-y-3">
                       <div className="flex items-center gap-3">
                         <div className="relative w-16 h-16 rounded-full overflow-hidden border border-[#28302D] shrink-0">
-                          <img src={ASSET_PATHS.portrait} alt="Discord Avatar" className="w-full h-full object-cover" />
+                          <TraceImage src={ASSET_PATHS.portrait} alt="Discord Avatar" className="w-full h-full" />
                           <span className="absolute bottom-0 right-0 w-4 h-4 bg-[#0DF569] border-2 border-[#161918] rounded-full" />
                         </div>
                         <div>
@@ -316,7 +317,7 @@ export const QualityTests: React.FC = () => {
                     <div className="bg-[#111413] border border-[#1C201F] p-4 rounded-2xl max-w-sm w-full space-y-3">
                       <div className="flex items-center gap-3">
                         <div className="w-16 h-16 rounded-2xl overflow-hidden border border-[#0DF569]/40 shrink-0">
-                          <img src={ASSET_PATHS.portrait} alt="Telegram Avatar" className="w-full h-full object-cover" />
+                          <TraceImage src={ASSET_PATHS.portrait} alt="Telegram Avatar" className="w-full h-full" />
                         </div>
                         <div>
                           <span className="font-bold text-[#EDECE8] text-sm">Trace [MEMEAI]</span>
@@ -329,7 +330,7 @@ export const QualityTests: React.FC = () => {
                   {pfpPlatform === 'hexagon' && (
                     <div className="bg-[#090A0A] border border-[#1C201F] p-4 rounded-xl max-w-sm w-full flex flex-col items-center text-center space-y-3">
                       <div className="w-20 h-20 overflow-hidden [clip-path:polygon(50%_0%,100%_25%,100%_75%,50%_100%,0%_75%,0%_25%)] border-2 border-[#0DF569] shadow-[0_0_15px_rgba(13,245,105,0.3)]">
-                        <img src={ASSET_PATHS.portrait} alt="Hexagon Avatar" className="w-full h-full object-cover" />
+                        <TraceImage src={ASSET_PATHS.portrait} alt="Hexagon Avatar" className="w-full h-full" />
                       </div>
                       <div>
                         <span className="font-bold text-[#EDECE8] text-sm block">0xTRACE · NULL MINT</span>
@@ -377,7 +378,7 @@ export const QualityTests: React.FC = () => {
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div className="bg-[#090A0A] border border-[#1C201F] rounded-lg p-3 space-y-2">
                   <div className="aspect-square rounded overflow-hidden">
-                    <img src={ASSET_PATHS.meme} alt="Meme 1" className="w-full h-full object-cover" />
+                    <TraceImage src={ASSET_PATHS.meme} alt="Meme 1" className="w-full h-full" />
                   </div>
                   <div className="text-center pt-1">
                     <span className="text-xs font-bold font-mono text-[#0DF569]">"Probably nothing."</span>
@@ -387,7 +388,7 @@ export const QualityTests: React.FC = () => {
 
                 <div className="bg-[#090A0A] border border-[#1C201F] rounded-lg p-3 space-y-2">
                   <div className="aspect-square rounded overflow-hidden">
-                    <img src={ASSET_PATHS.lookback} alt="Meme 2" className="w-full h-full object-cover" />
+                    <TraceImage src={ASSET_PATHS.lookback} alt="Meme 2" className="w-full h-full" />
                   </div>
                   <div className="text-center pt-1">
                     <span className="text-xs font-bold font-mono text-[#0DF569]">"Interesting."</span>
@@ -397,7 +398,7 @@ export const QualityTests: React.FC = () => {
 
                 <div className="bg-[#090A0A] border border-[#1C201F] rounded-lg p-3 space-y-2">
                   <div className="aspect-square rounded overflow-hidden">
-                    <img src={ASSET_PATHS.operator} alt="Meme 3" className="w-full h-full object-cover" />
+                    <TraceImage src={ASSET_PATHS.operator} alt="Meme 3" className="w-full h-full" />
                   </div>
                   <div className="text-center pt-1">
                     <span className="text-xs font-bold font-mono text-[#0DF569]">"Give me a second."</span>

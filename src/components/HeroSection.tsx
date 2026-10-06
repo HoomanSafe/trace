@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { ASSET_PATHS, CHARACTER_NAME, CHARACTER_CODENAME, SIGNATURE_ELEMENT } from '../data/characterData';
 import { NullCrestSymbol } from './SvgAssets';
+import { TraceImage } from './TraceImage';
 import { Eye, Shield, Sparkles, Download, Layers } from 'lucide-react';
 
 interface HeroSectionProps {
@@ -163,46 +164,24 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenDossier, onNavig
                     : 'bg-[#090A0A]'
                 }`}
               >
-                {/* Mode 1: Standard Full Hero Illustration */}
-                {viewMode === 'standard' && (
-                  <img
-                    src={ASSET_PATHS.hero}
-                    alt="TRACE - Master Stealth Mascot for MEMEAI"
-                    referrerPolicy="no-referrer"
-                    className={`w-full h-full object-cover transition-transform duration-500 ${
-                      isZoomed ? 'scale-125' : 'scale-100'
-                    }`}
-                  />
-                )}
+                {/* Resilient Character Visual with Instant Vector Fallback */}
+                <TraceImage
+                  src={viewMode === 'ocular' ? ASSET_PATHS.portrait : ASSET_PATHS.hero}
+                  alt="TRACE - Master Stealth Mascot for MEMEAI"
+                  filterMode={viewMode}
+                  zoom={isZoomed}
+                  className="w-full h-full"
+                />
 
-                {/* Mode 2: Silhouette Test (Pure black figure against high contrast emerald) */}
                 {viewMode === 'silhouette' && (
-                  <div className="w-full h-full flex flex-col items-center justify-center p-6 text-center select-none">
-                    <img
-                      src={ASSET_PATHS.hero}
-                      alt="Silhouette benchmark of TRACE"
-                      referrerPolicy="no-referrer"
-                      className="w-full h-full object-cover filter brightness-0 contrast-200"
-                    />
-                    <div className="absolute bottom-4 left-4 right-4 bg-[#090A0A]/90 p-2.5 rounded text-xs font-mono text-[#EDECE8] border border-[#1C201F]">
-                      <span className="text-[#0DF569]">TEST 1 PASS:</span> Silhouette recognized instantly by hood peak, athletic shoulders, and zero-weapon posture.
-                    </div>
+                  <div className="absolute bottom-4 left-4 right-4 bg-[#090A0A]/90 p-2.5 rounded text-xs font-mono text-[#EDECE8] border border-[#1C201F] z-20">
+                    <span className="text-[#0DF569]">TEST 1 PASS:</span> Silhouette recognized instantly by hood peak, athletic shoulders, and zero-weapon posture.
                   </div>
                 )}
 
-                {/* Mode 3: Ocular Isolation (Only the iconic sharp green eyes in pitch black) */}
                 {viewMode === 'ocular' && (
-                  <div className="w-full h-full flex flex-col items-center justify-center relative select-none">
-                    <img
-                      src={ASSET_PATHS.portrait}
-                      alt="Eye identity benchmark"
-                      referrerPolicy="no-referrer"
-                      className="w-full h-full object-cover filter brightness-[0.25] contrast-[300%]"
-                    />
-                    <div className="absolute inset-0 bg-radial from-transparent via-[#000000]/80 to-[#000000] pointer-events-none" />
-                    <div className="absolute bottom-4 left-4 right-4 bg-[#090A0A]/90 p-2.5 rounded text-xs font-mono text-[#EDECE8] border border-[#1C201F]">
-                      <span className="text-[#0DF569]">TEST 2 PASS:</span> "I already know." Narrow, intelligent, zero-robotics emerald gaze.
-                    </div>
+                  <div className="absolute bottom-4 left-4 right-4 bg-[#090A0A]/90 p-2.5 rounded text-xs font-mono text-[#EDECE8] border border-[#1C201F] z-20">
+                    <span className="text-[#0DF569]">TEST 2 PASS:</span> "I already know." Narrow, intelligent, zero-robotics emerald gaze.
                   </div>
                 )}
 

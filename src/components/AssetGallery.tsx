@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { ASSET_PATHS, CHARACTER_POSES } from '../data/characterData';
 import { NullCrestSymbol, TraceVectorAvatar, RAW_SYMBOL_SVG, RAW_AVATAR_SVG, downloadSvg } from './SvgAssets';
+import { TraceImage } from './TraceImage';
 import { Download, Copy, Check, Eye, ExternalLink, Image as ImageIcon } from 'lucide-react';
 
 interface AssetGalleryProps {
@@ -307,11 +308,11 @@ export const AssetGallery: React.FC<AssetGalleryProps> = ({ onSelectForMeme }) =
                         </span>
                       </div>
                     ) : asset.src ? (
-                      <img
+                      <TraceImage
                         src={asset.src}
                         alt={asset.title}
-                        referrerPolicy="no-referrer"
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                        className="w-full h-full"
+                        imgClassName="group-hover:scale-105 transition-transform duration-500"
                       />
                     ) : null}
 

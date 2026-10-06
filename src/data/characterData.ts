@@ -1,4 +1,9 @@
 import { CharacterPose, CharacterExpression, TurnaroundView, ColorSwatch } from '../types/character';
+import heroImg from '../assets/images/character_hero_1791290377108.jpg';
+import portraitImg from '../assets/images/character_portrait_1791290391762.jpg';
+import operatorImg from '../assets/images/character_operator_1791290403282.jpg';
+import lookbackImg from '../assets/images/character_lookback_1791290431124.jpg';
+import memeImg from '../assets/images/character_meme_1791290449081.jpg';
 
 export const CHARACTER_NAME = 'TRACE';
 export const CHARACTER_CODENAME = 'NULL OPERATOR';
@@ -6,11 +11,11 @@ export const UNIVERSE_NAME = 'MEMEAI';
 export const SIGNATURE_ELEMENT = 'The Cipher Seam & Null Crest';
 
 export const ASSET_PATHS = {
-  hero: '/src/assets/images/character_hero_1791290377108.jpg',
-  portrait: '/src/assets/images/character_portrait_1791290391762.jpg',
-  operator: '/src/assets/images/character_operator_1791290403282.jpg',
-  lookback: '/src/assets/images/character_lookback_1791290431124.jpg',
-  meme: '/src/assets/images/character_meme_1791290449081.jpg',
+  hero: heroImg,
+  portrait: portraitImg,
+  operator: operatorImg,
+  lookback: lookbackImg,
+  meme: memeImg,
 };
 
 export const CHARACTER_POSES: CharacterPose[] = [

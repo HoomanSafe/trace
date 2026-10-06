@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { ASSET_PATHS, CHARACTER_POSES } from '../data/characterData';
 import { NullCrestSymbol } from './SvgAssets';
+import { TraceImage } from './TraceImage';
 import { Download, Sparkles, RefreshCw, Type, Stamp, Check } from 'lucide-react';
 
 interface MemeStudioProps {
@@ -40,18 +41,7 @@ export const MemeStudio: React.FC<MemeStudioProps> = ({ initialImageSrc }) => {
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
-    const img = new Image();
-    img.crossOrigin = 'anonymous';
-    img.src = selectedImage;
-
-    img.onload = () => {
-      // Set canvas dimension based on image
-      canvas.width = 800;
-      canvas.height = 800;
-
-      // Draw image
-      ctx.drawImage(img, 0, 0, 800, 800);
-
+    const renderOverlayAndText = () => {
       // Add subtle dark gradient scrim at top and bottom for text readability
       const topGrad = ctx.createLinearGradient(0, 0, 0, 180);
       topGrad.addColorStop(0, 'rgba(9, 10, 10, 0.7)');
@@ -104,6 +94,89 @@ export const MemeStudio: React.FC<MemeStudioProps> = ({ initialImageSrc }) => {
         ctx.textAlign = 'right';
         ctx.fillText('MEMEAI // TRACE', 770, 780);
       }
+    };
+
+    const drawVectorFallback = () => {
+      canvas.width = 800;
+      canvas.height = 800;
+      // Background
+      ctx.fillStyle = '#090A0A';
+      ctx.fillRect(0, 0, 800, 800);
+
+      // Dark hood silhouette
+      ctx.fillStyle = '#111413';
+      ctx.beginPath();
+      ctx.moveTo(400, 160);
+      ctx.lineTo(600, 320);
+      ctx.lineTo(580, 560);
+      ctx.lineTo(400, 640);
+      ctx.lineTo(220, 560);
+      ctx.lineTo(200, 320);
+      ctx.closePath();
+      ctx.fill();
+
+      // Inner shadow cavity
+      ctx.fillStyle = '#040605';
+      ctx.beginPath();
+      ctx.moveTo(400, 280);
+      ctx.lineTo(520, 360);
+      ctx.lineTo(480, 520);
+      ctx.lineTo(400, 560);
+      ctx.lineTo(320, 520);
+      ctx.lineTo(280, 360);
+      ctx.closePath();
+      ctx.fill();
+
+      // Sharp glowing emerald slit eyes
+      ctx.fillStyle = '#0DF569';
+      ctx.shadowColor = '#0DF569';
+      ctx.shadowBlur = 18;
+      // Left eye
+      ctx.beginPath();
+      ctx.moveTo(310, 420);
+      ctx.lineTo(370, 400);
+      ctx.lineTo(375, 412);
+      ctx.lineTo(315, 432);
+      ctx.closePath();
+      ctx.fill();
+      // Right eye
+      ctx.beginPath();
+      ctx.moveTo(425, 400);
+      ctx.lineTo(485, 420);
+      ctx.lineTo(480, 432);
+      ctx.lineTo(420, 412);
+      ctx.closePath();
+      ctx.fill();
+      ctx.shadowBlur = 0;
+
+      // Specular pinpricks
+      ctx.fillStyle = '#EDECE8';
+      ctx.beginPath();
+      ctx.arc(355, 407, 3, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.beginPath();
+      ctx.arc(440, 407, 3, 0, Math.PI * 2);
+      ctx.fill();
+
+      renderOverlayAndText();
+    };
+
+    const img = new Image();
+    // Only set crossOrigin if loading from external HTTP/HTTPS host
+    if (selectedImage.startsWith('http')) {
+      img.crossOrigin = 'anonymous';
+    }
+    img.src = selectedImage;
+
+    img.onload = () => {
+      canvas.width = 800;
+      canvas.height = 800;
+      ctx.drawImage(img, 0, 0, 800, 800);
+      renderOverlayAndText();
+    };
+
+    img.onerror = () => {
+      drawVectorFallback();
     };
   }, [selectedImage, topText, bottomText, fontFamily, fontSize, showWatermark]);
 
@@ -174,11 +247,10 @@ export const MemeStudio: React.FC<MemeStudioProps> = ({ initialImageSrc }) => {
                       }`}
                       title={pose.name}
                     >
-                      <img
+                      <TraceImage
                         src={pose.imageSrc}
                         alt={pose.name}
-                        referrerPolicy="no-referrer"
-                        className="w-full h-full object-cover"
+                        className="w-full h-full"
                       />
                     </button>
                   );
