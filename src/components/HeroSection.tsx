@@ -57,7 +57,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenDossier, onNavig
             {/* Technical Specifications Grid (Clean Unboxed Grid) */}
             <div className="pt-2 border-t border-[#1C201F] grid grid-cols-2 sm:grid-cols-3 gap-4 text-xs">
               <div>
-                <span className="block text-[#697570] font-mono mb-1">Codename</span>
+                <span className="block text-[#697570] font-mono mb-1">X</span>
                 <span className="text-[#EDECE8] font-semibold">{CHARACTER_CODENAME}</span>
               </div>
               <div>

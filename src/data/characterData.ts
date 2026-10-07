@@ -6,7 +6,7 @@ import lookbackImg from '../assets/images/character_lookback_1791290431124.jpg';
 import memeImg from '../assets/images/character_meme_1791290449081.jpg';
 
 export const CHARACTER_NAME = 'TRACE';
-export const CHARACTER_CODENAME = 'NULL OPERATOR';
+export const CHARACTER_CODENAME = 'TraceOnHood';
 export const UNIVERSE_NAME = 'MEMEAI';
 export const SIGNATURE_ELEMENT = 'The Cipher Seam & Null Crest';
 
