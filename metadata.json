@@ -1,6 +1,6 @@
 {
-  "name": "TRACE — MEMEAI Stealth Mascot",
-  "description": "Original stealth character design for the MEMEAI universe. Complete master model sheets, silhouette verification, eye identity tests, interactive meme engine, and vector brand assets.",
+  "name": "TRACE — Solana Stealth Mascot ($TRACE)",
+  "description": "Original stealth character design and meme mascot for the MEMEAI universe on the Solana blockchain. Launching on pump.fun with model sheets, interactive meme maker, and Solana brand assets.",
   "requestFramePermissions": [],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }

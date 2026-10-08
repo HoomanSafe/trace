@@ -6,9 +6,23 @@ import lookbackImg from '../assets/images/character_lookback_1791290431124.jpg';
 import memeImg from '../assets/images/character_meme_1791290449081.jpg';
 
 export const CHARACTER_NAME = 'TRACE';
-export const CHARACTER_CODENAME = 'TraceOnHood';
-export const UNIVERSE_NAME = 'MEMEAI';
-export const SIGNATURE_ELEMENT = 'The Cipher Seam & Null Crest';
+export const CHARACTER_CODENAME = 'NULL OPERATOR';
+export const UNIVERSE_NAME = 'MEMEAI on SOLANA';
+export const SIGNATURE_ELEMENT = 'The Solana Cipher Seam & Null Crest';
+
+export const SOLANA_CONFIG = {
+  network: 'Solana Mainnet-Beta',
+  tokenTicker: '$TRACE',
+  tokenName: 'TRACE',
+  contractAddress: 'TRACE7v18jM5EaL4k9Zq9V1rUpmbSolanaPump4Fun',
+  pumpFunUrl: 'https://pump.fun',
+  pumpFunCoinUrl: 'https://pump.fun/coin/TRACE7v18jM5EaL4k9Zq9V1rUpmbSolanaPump4Fun',
+  dexScreenerUrl: 'https://dexscreener.com/solana',
+  solscanUrl: 'https://solscan.io',
+  bondingCurveProgress: 74,
+  kingOfTheHillStatus: 'King of the Hill Candidate',
+  initialSupply: '1,000,000,000 $TRACE',
+};
 
 export const ASSET_PATHS = {
   hero: heroImg,
@@ -174,46 +188,46 @@ export const CHARACTER_EXPRESSIONS: CharacterExpression[] = [
 
 export const COLOR_PALETTE: ColorSwatch[] = [
   {
-    name: 'Void Carbon',
-    hex: '#090A0A',
-    role: 'Primary Surface / Base Silhouette',
+    name: 'Solana Mint',
+    hex: '#14F195',
+    role: 'Primary Accent / Solana Speed & Ocular Glow',
+    pantoneRef: 'PMS 802 C / Solana Official',
+    usage: '10% piercing eyes, speed telemetry lines, verified Solana token badge.',
+  },
+  {
+    name: 'Solana Electric Purple',
+    hex: '#9945FF',
+    role: 'Secondary Accent / Asymmetric Rim & Sub-Second Pulse',
+    pantoneRef: 'PMS 2685 C / Solana Official',
+    usage: 'Subtle gradient rim light on hood crest, bonding curve milestone highlights.',
+  },
+  {
+    name: 'Pump.fun Green',
+    hex: '#10B981',
+    role: 'Platform Brand / Bonding Curve & Capsule Icon',
+    pantoneRef: 'PMS 7724 C',
+    usage: 'Action buttons, pump.fun capsule pill badge, buy button background.',
+  },
+  {
+    name: 'Void Obsidian',
+    hex: '#090A0E',
+    role: 'Primary Canvas / Base Stealth Silhouette',
     pantoneRef: 'PMS Black 6 C',
     usage: '60% canvas, deep shadows, inner hood depth, tactical outer shell.',
   },
   {
-    name: 'Stealth Charcoal',
-    hex: '#151817',
-    role: 'Secondary Structure / Jacket Facets',
+    name: 'Cyber Slate',
+    hex: '#12141F',
+    role: 'Secondary Structure / Technical Jacket Facets',
     pantoneRef: 'PMS 419 C',
     usage: '30% technical fabric panels, angular folds, shoulder contours.',
   },
   {
-    name: 'Cipher Emerald',
-    hex: '#0DF569',
-    role: 'Primary Accent / Ocular Glow & Seam',
-    pantoneRef: 'PMS 802 C',
-    usage: '10% sharp eyes, single hood seam fiber, terminal HUD markings.',
-  },
-  {
-    name: 'Deep Forest',
-    hex: '#054F31',
-    role: 'Atmospheric Shadow & Rim Falloff',
-    pantoneRef: 'PMS 3435 C',
-    usage: 'Subtle ambient green falloff, secondary depth occlusion, rim fill.',
-  },
-  {
-    name: 'Chalk White',
+    name: 'Chalk Specular',
     hex: '#EDECE8',
-    role: 'Supporting Highlight & Eye Specular',
+    role: 'Supporting Highlight & Eye Specular Core',
     pantoneRef: 'PMS Warm Gray 1 C',
     usage: 'Eye glint pinpricks, high-contrast vector linework accents.',
-  },
-  {
-    name: 'Matte Brass',
-    hex: '#C2A649',
-    role: 'Micro-Hardware Specular (Optional)',
-    pantoneRef: 'PMS 4505 C',
-    usage: 'Minimalist metallic zipper pull, single micro-hardware rivet.',
   },
 ];
 
@@ -224,10 +238,10 @@ export const TURNAROUND_VIEWS: TurnaroundView[] = [
     angle: '0° Cardinal',
     features: [
       'Symmetric angular hood peak with 118° apex fold',
-      'Dual illuminated slit eyes spaced at golden ratio proportions',
+      'Dual illuminated slit eyes spaced at golden ratio proportions with Solana mint glow',
       'High cowl neck covering lower chin, clean vertical center zip',
-      'Athletic athletic shoulder width (1.618× waist)',
-      'Single Cipher Seam tracing right temple edge only (asymmetric tell)',
+      'Athletic shoulder width (1.618× waist)',
+      'Single Solana Mint Cipher Seam tracing right temple edge only (asymmetric tell)',
     ],
     notes: 'The front profile projects quiet surveillance. The eye glow is visible while mouth and jaw remain cloaked in pure carbon shadow.',
   },
@@ -263,7 +277,7 @@ export const TURNAROUND_VIEWS: TurnaroundView[] = [
     angle: '180° Departure',
     features: [
       'Clean faceted back hood panel tapering into spine center line',
-      'Subtle debossed Null Crest emblem at the nape of the neck',
+      'Subtle debossed Null Crest emblem with micro Solana gradient at the nape of the neck',
       'Zero garish text or large logos — pure textile discipline',
       'Articulated shoulder gussets engineered for silent agility',
       'Subtle green fiber-optic stitch visible only at certain glancing angles',
@@ -275,18 +289,20 @@ export const TURNAROUND_VIEWS: TurnaroundView[] = [
 export const LORE_DOSSIER = {
   codename: 'TRACE',
   realName: 'Unknown / Null',
-  origin: 'Generated within the subterranean liquidity clusters of MEMEAI',
-  role: 'Shadow AI Operator / Internet Enigma',
-  operationalStatus: 'Active across all blocks, omnipresent yet untracked',
+  origin: 'Deployed on Solana via Pump.fun bonding curve from the subterranean liquidity clusters of MEMEAI',
+  role: 'Solana Shadow AI Operator / Internet Enigma',
+  operationalStatus: 'Active across all 400ms Solana slots, front-running silence, untracked by MEV bots',
   personalityTraits: [
-    'Calm Chaos: Never panics during market collapses or network splits',
-    'Minimal Verbiage: Operates in one-line truths or single deadpan reactions',
-    'Intellectual Stealth: Solves complex problems quietly, leaves zero vanity signatures',
-    'Humor In Context: Remains completely serious while participating in absurd meme scenarios',
+    'Calm Chaos: Never panics during market dumps, Solana congestion, or bonding curve volatility',
+    'Sub-Second Reflexes: Solves transactions in 400ms without leaving a vanity signature',
+    'Minimal Verbiage: Operates in one-line truths ("Probably nothing.", "Sent it on Pump.fun.")',
+    'Deadpan Strategic Wit: Completely calm while watching green candles light up the chart',
   ],
   quoteArchive: [
     'I already know.',
     'Probably nothing.',
+    'Sent it on Pump.fun.',
+    'Dev didn\'t sell.',
     'Not my problem.',
     'Give me a second.',
     'Execute.',

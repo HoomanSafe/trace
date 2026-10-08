@@ -1,8 +1,8 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { ASSET_PATHS, CHARACTER_POSES } from '../data/characterData';
-import { NullCrestSymbol } from './SvgAssets';
+import { ASSET_PATHS, CHARACTER_POSES, SOLANA_CONFIG } from '../data/characterData';
+import { NullCrestSymbol, SolanaLogo, PumpFunLogo } from './SvgAssets';
 import { TraceImage } from './TraceImage';
-import { Download, Sparkles, RefreshCw, Type, Stamp, Check } from 'lucide-react';
+import { Download, Sparkles, RefreshCw, Type, Stamp, Check, Eye } from 'lucide-react';
 
 interface MemeStudioProps {
   initialImageSrc?: string;
@@ -23,15 +23,17 @@ export const MemeStudio: React.FC<MemeStudioProps> = ({ initialImageSrc }) => {
 
   const presetCaptions = [
     'PROBABLY NOTHING.',
+    'SENT IT ON PUMP.FUN.',
+    'BONDING CURVE AT 100%.',
+    'KING OF THE HILL.',
+    'DEV DIDN\'T SELL.',
+    'RAYDIUM POOL INCOMING.',
     'I ALREADY KNOW.',
+    'SUB-SECOND FRONTRUN.',
+    '400MS STEALTH.',
+    'JUST SWEPT THE FLOOR.',
     'NOT MY PROBLEM.',
-    'EXECUTE.',
-    'NOBODY SAW THAT.',
     'INTERESTING.',
-    'TRUST ME.',
-    'GIVE ME A SECOND.',
-    'PLAN SUCCEEDED.',
-    'PLAN FAILED.',
   ];
 
   // Draw on canvas whenever state changes
@@ -44,14 +46,14 @@ export const MemeStudio: React.FC<MemeStudioProps> = ({ initialImageSrc }) => {
     const renderOverlayAndText = () => {
       // Add subtle dark gradient scrim at top and bottom for text readability
       const topGrad = ctx.createLinearGradient(0, 0, 0, 180);
-      topGrad.addColorStop(0, 'rgba(9, 10, 10, 0.7)');
+      topGrad.addColorStop(0, 'rgba(7, 8, 14, 0.75)');
       topGrad.addColorStop(1, 'transparent');
       ctx.fillStyle = topGrad;
       ctx.fillRect(0, 0, 800, 180);
 
       const botGrad = ctx.createLinearGradient(0, 620, 0, 800);
       botGrad.addColorStop(0, 'transparent');
-      botGrad.addColorStop(1, 'rgba(9, 10, 10, 0.85)');
+      botGrad.addColorStop(1, 'rgba(7, 8, 14, 0.88)');
       ctx.fillStyle = botGrad;
       ctx.fillRect(0, 620, 800, 180);
 
@@ -90,9 +92,9 @@ export const MemeStudio: React.FC<MemeStudioProps> = ({ initialImageSrc }) => {
       // Draw Watermark if enabled
       if (showWatermark) {
         ctx.font = `600 14px 'JetBrains Mono', monospace`;
-        ctx.fillStyle = '#0DF569';
+        ctx.fillStyle = '#14F195';
         ctx.textAlign = 'right';
-        ctx.fillText('MEMEAI // TRACE', 770, 780);
+        ctx.fillText('$TRACE // SOLANA · PUMP.FUN', 770, 780);
       }
     };
 
@@ -100,11 +102,11 @@ export const MemeStudio: React.FC<MemeStudioProps> = ({ initialImageSrc }) => {
       canvas.width = 800;
       canvas.height = 800;
       // Background
-      ctx.fillStyle = '#090A0A';
+      ctx.fillStyle = '#07080E';
       ctx.fillRect(0, 0, 800, 800);
 
       // Dark hood silhouette
-      ctx.fillStyle = '#111413';
+      ctx.fillStyle = '#0F1222';
       ctx.beginPath();
       ctx.moveTo(400, 160);
       ctx.lineTo(600, 320);
@@ -116,7 +118,7 @@ export const MemeStudio: React.FC<MemeStudioProps> = ({ initialImageSrc }) => {
       ctx.fill();
 
       // Inner shadow cavity
-      ctx.fillStyle = '#040605';
+      ctx.fillStyle = '#030408';
       ctx.beginPath();
       ctx.moveTo(400, 280);
       ctx.lineTo(520, 360);
@@ -127,10 +129,10 @@ export const MemeStudio: React.FC<MemeStudioProps> = ({ initialImageSrc }) => {
       ctx.closePath();
       ctx.fill();
 
-      // Sharp glowing emerald slit eyes
-      ctx.fillStyle = '#0DF569';
-      ctx.shadowColor = '#0DF569';
-      ctx.shadowBlur = 18;
+      // Sharp glowing emerald slit eyes in Solana Mint
+      ctx.fillStyle = '#14F195';
+      ctx.shadowColor = '#14F195';
+      ctx.shadowBlur = 20;
       // Left eye
       ctx.beginPath();
       ctx.moveTo(310, 420);
@@ -161,23 +163,41 @@ export const MemeStudio: React.FC<MemeStudioProps> = ({ initialImageSrc }) => {
       renderOverlayAndText();
     };
 
-    const img = new Image();
-    // Only set crossOrigin if loading from external HTTP/HTTPS host
-    if (selectedImage.startsWith('http')) {
-      img.crossOrigin = 'anonymous';
-    }
-    img.src = selectedImage;
+    // Attempt to load image with candidate fallbacks
+    const candidates = [
+      selectedImage,
+      selectedImage.replace('/src/assets/', '/assets/'),
+      selectedImage.replace('/assets/', '/src/assets/'),
+    ];
 
-    img.onload = () => {
-      canvas.width = 800;
-      canvas.height = 800;
-      ctx.drawImage(img, 0, 0, 800, 800);
-      renderOverlayAndText();
+    let currentAttempt = 0;
+
+    const tryLoadImage = (index: number) => {
+      if (index >= candidates.length) {
+        drawVectorFallback();
+        return;
+      }
+
+      const img = new Image();
+      if (candidates[index].startsWith('http')) {
+        img.crossOrigin = 'anonymous';
+      }
+      img.src = candidates[index];
+
+      img.onload = () => {
+        canvas.width = 800;
+        canvas.height = 800;
+        ctx.drawImage(img, 0, 0, 800, 800);
+        renderOverlayAndText();
+      };
+
+      img.onerror = () => {
+        tryLoadImage(index + 1);
+      };
     };
 
-    img.onerror = () => {
-      drawVectorFallback();
-    };
+    tryLoadImage(currentAttempt);
+
   }, [selectedImage, topText, bottomText, fontFamily, fontSize, showWatermark]);
 
   const handleDownloadMeme = () => {
@@ -189,49 +209,50 @@ export const MemeStudio: React.FC<MemeStudioProps> = ({ initialImageSrc }) => {
       const dataUrl = canvas.toDataURL('image/png');
       const a = document.createElement('a');
       a.href = dataUrl;
-      a.download = `trace-meme-${Date.now()}.png`;
+      a.download = `TRACE-meme-${Date.now()}.png`;
       document.body.appendChild(a);
       a.click();
       document.body.removeChild(a);
-    } catch (e) {
-      console.error('Download error:', e);
+    } catch {
+      // Fallback
     } finally {
-      setTimeout(() => setIsExporting(false), 800);
+      setTimeout(() => setIsExporting(false), 1200);
     }
   };
 
   return (
-    <section className="py-12 border-b border-[#1C201F]">
+    <section className="py-12 border-b border-[#1A1E30] bg-[#07080E]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
         
         {/* Section Header */}
         <div>
-          <div className="flex items-center gap-2 text-xs font-mono text-[#8F9B95] tracking-wider uppercase mb-1">
-            <span>Section 18 & 20 Engine</span>
-            <span aria-hidden="true" className="text-[#0DF569]">·</span>
-            <span>Interactive Meme Studio</span>
+          <div className="flex items-center gap-2 text-xs font-mono text-[#8F98BA] tracking-wider uppercase mb-1">
+            <SolanaLogo size={14} />
+            <span>Solana Viral Engine</span>
+            <span aria-hidden="true" className="text-[#9945FF]">·</span>
+            <span className="text-[#10B981]">Pump.fun Community Reaction Generator</span>
           </div>
           <h2
-            className="text-3xl sm:text-4xl font-extrabold text-[#EDECE8] tracking-tight"
+            className="text-3xl sm:text-4xl font-extrabold text-[#E4E7F5] tracking-tight"
             style={{ fontFamily: "'Syne', sans-serif" }}
           >
-            Meme Generator & Reaction Studio
+            Meme Studio & Reaction Engine
           </h2>
-          <p className="text-[#8F9B95] text-sm mt-1 max-w-2xl">
-            Create high-engagement reaction memes with TRACE’s signature calm chaos poses. Powered by instant canvas export.
+          <p className="text-[#8F98BA] text-sm mt-1 max-w-2xl">
+            Create high-contrast reaction memes using TRACE's signature poses. Instant 1-click PNG export with custom top/bottom captions and Solana watermark.
           </p>
         </div>
 
         {/* Studio Workspace */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
           
-          {/* Controls Column (Left) */}
-          <div className="lg:col-span-5 bg-[#111413] border border-[#1C201F] rounded-xl p-6 space-y-6">
+          {/* Controls Column */}
+          <div className="lg:col-span-5 space-y-6 bg-[#0B0E1C] border border-[#1E2542] rounded-xl p-6 shadow-xl">
             
-            {/* Step 1: Choose Pose */}
-            <div className="space-y-2">
-              <label className="text-xs font-mono text-[#0DF569] block">
-                1. SELECT OPERATOR POSE:
+            {/* 1. Character Pose Selector */}
+            <div>
+              <label className="block text-xs font-mono text-[#8F98BA] mb-2 uppercase tracking-wider">
+                1. Select Master Pose
               </label>
               <div className="grid grid-cols-5 gap-2">
                 {CHARACTER_POSES.map((pose) => {
@@ -240,17 +261,17 @@ export const MemeStudio: React.FC<MemeStudioProps> = ({ initialImageSrc }) => {
                     <button
                       key={pose.id}
                       onClick={() => setSelectedImage(pose.imageSrc)}
-                      className={`aspect-square rounded-lg overflow-hidden border transition-all cursor-pointer relative ${
+                      className={`relative aspect-square rounded-lg overflow-hidden border transition-all cursor-pointer ${
                         isSelected
-                          ? 'border-[#0DF569] ring-2 ring-[#0DF569] scale-105'
-                          : 'border-[#1C201F] opacity-70 hover:opacity-100'
+                          ? 'border-[#14F195] ring-2 ring-[#14F195]/40 scale-105'
+                          : 'border-[#1E2542] opacity-70 hover:opacity-100 hover:border-[#2A345C]'
                       }`}
                       title={pose.name}
                     >
                       <TraceImage
                         src={pose.imageSrc}
                         alt={pose.name}
-                        className="w-full h-full"
+                        className="w-full h-full object-cover"
                       />
                     </button>
                   );
@@ -258,84 +279,81 @@ export const MemeStudio: React.FC<MemeStudioProps> = ({ initialImageSrc }) => {
               </div>
             </div>
 
-            {/* Step 2: One-Click Presets */}
-            <div className="space-y-2">
-              <label className="text-xs font-mono text-[#8F9B95] block">
-                2. QUICK PRESET CAPTIONS:
+            {/* 2. Text Input Controls */}
+            <div className="space-y-3">
+              <label className="block text-xs font-mono text-[#8F98BA] uppercase tracking-wider">
+                2. Caption Controls
+              </label>
+
+              <div>
+                <span className="text-[11px] font-mono text-[#6C7699] block mb-1">TOP TEXT (OPTIONAL)</span>
+                <input
+                  type="text"
+                  value={topText}
+                  onChange={(e) => setTopText(e.target.value)}
+                  placeholder="WHEN SOLANA TPS HITS 65,000..."
+                  className="w-full bg-[#07080E] border border-[#1E2542] focus:border-[#14F195] rounded-lg px-3 py-2 text-xs font-mono text-[#E4E7F5] outline-none transition-colors"
+                />
+              </div>
+
+              <div>
+                <span className="text-[11px] font-mono text-[#6C7699] block mb-1">BOTTOM TEXT (PUNCHLINE)</span>
+                <input
+                  type="text"
+                  value={bottomText}
+                  onChange={(e) => setBottomText(e.target.value)}
+                  placeholder="PROBABLY NOTHING."
+                  className="w-full bg-[#07080E] border border-[#1E2542] focus:border-[#14F195] rounded-lg px-3 py-2 text-xs font-mono text-[#E4E7F5] outline-none transition-colors"
+                />
+              </div>
+            </div>
+
+            {/* 3. Preset Solana & Pump.fun One-Click Reaction Templates */}
+            <div>
+              <label className="block text-xs font-mono text-[#8F98BA] mb-2 uppercase tracking-wider flex items-center justify-between">
+                <span>3. Instant Solana / Pump.fun Presets</span>
+                <span className="text-[10px] text-[#14F195]">Click to apply</span>
               </label>
               <div className="flex flex-wrap gap-1.5">
-                {presetCaptions.map((cap) => (
+                {presetCaptions.map((caption) => (
                   <button
-                    key={cap}
-                    onClick={() => {
-                      setBottomText(cap);
-                    }}
-                    className={`px-2.5 py-1 rounded text-[11px] font-mono transition-colors cursor-pointer ${
-                      bottomText === cap
-                        ? 'bg-[#0DF569] text-[#090A0A] font-bold'
-                        : 'bg-[#151817] text-[#8F9B95] hover:text-[#EDECE8] border border-[#1C201F]'
-                    }`}
+                    key={caption}
+                    onClick={() => setBottomText(caption)}
+                    className="px-2.5 py-1 text-[11px] font-mono bg-[#121629] hover:bg-[#1A1F36] text-[#8F98BA] hover:text-[#14F195] border border-[#1E2542] rounded transition-colors cursor-pointer"
                   >
-                    {cap}
+                    {caption}
                   </button>
                 ))}
               </div>
             </div>
 
-            {/* Step 3: Text Inputs */}
-            <div className="space-y-3">
+            {/* 4. Font & Formatting Controls */}
+            <div className="pt-2 border-t border-[#1E2542] grid grid-cols-2 gap-4">
               <div>
-                <label className="text-xs font-mono text-[#8F9B95] block mb-1">
-                  TOP CAPTION (OPTIONAL):
+                <label className="block text-[11px] font-mono text-[#6C7699] mb-1.5">
+                  TYPOGRAPHY
                 </label>
-                <input
-                  type="text"
-                  value={topText}
-                  onChange={(e) => setTopText(e.target.value)}
-                  placeholder="e.g. WHEN THE MARKET CRASHES AT 3 AM"
-                  className="w-full bg-[#090A0A] border border-[#1C201F] focus:border-[#0DF569] rounded-lg px-3 py-2 text-xs text-[#EDECE8] font-mono outline-none"
-                />
-              </div>
-
-              <div>
-                <label className="text-xs font-mono text-[#8F9B95] block mb-1">
-                  BOTTOM CAPTION:
-                </label>
-                <input
-                  type="text"
-                  value={bottomText}
-                  onChange={(e) => setBottomText(e.target.value)}
-                  placeholder="e.g. PROBABLY NOTHING."
-                  className="w-full bg-[#090A0A] border border-[#1C201F] focus:border-[#0DF569] rounded-lg px-3 py-2 text-xs text-[#EDECE8] font-mono outline-none"
-                />
-              </div>
-            </div>
-
-            {/* Step 4: Font & Watermark Toggles */}
-            <div className="pt-2 border-t border-[#1C201F] space-y-4">
-              <div className="flex items-center justify-between">
-                <span className="text-xs font-mono text-[#8F9B95]">Typography:</span>
-                <div className="flex items-center gap-1 bg-[#090A0A] p-0.5 rounded border border-[#1C201F] text-xs">
+                <div className="flex rounded border border-[#1E2542] overflow-hidden text-xs">
                   <button
                     onClick={() => setFontFamily('syne')}
-                    className={`px-2 py-0.5 rounded cursor-pointer ${
-                      fontFamily === 'syne' ? 'bg-[#151817] text-[#0DF569]' : 'text-[#697570]'
+                    className={`flex-1 py-1 text-center font-bold transition-colors cursor-pointer ${
+                      fontFamily === 'syne' ? 'bg-[#151A30] text-[#14F195]' : 'bg-[#07080E] text-[#8F98BA]'
                     }`}
                   >
-                    Syne Heavy
+                    Syne
                   </button>
                   <button
                     onClick={() => setFontFamily('impact')}
-                    className={`px-2 py-0.5 rounded cursor-pointer ${
-                      fontFamily === 'impact' ? 'bg-[#151817] text-[#0DF569]' : 'text-[#697570]'
+                    className={`flex-1 py-1 text-center font-black transition-colors cursor-pointer ${
+                      fontFamily === 'impact' ? 'bg-[#151A30] text-[#14F195]' : 'bg-[#07080E] text-[#8F98BA]'
                     }`}
                   >
                     Impact
                   </button>
                   <button
                     onClick={() => setFontFamily('mono')}
-                    className={`px-2 py-0.5 rounded cursor-pointer ${
-                      fontFamily === 'mono' ? 'bg-[#151817] text-[#0DF569]' : 'text-[#697570]'
+                    className={`flex-1 py-1 text-center font-mono transition-colors cursor-pointer ${
+                      fontFamily === 'mono' ? 'bg-[#151A30] text-[#14F195]' : 'bg-[#07080E] text-[#8F98BA]'
                     }`}
                   >
                     Mono
@@ -343,51 +361,85 @@ export const MemeStudio: React.FC<MemeStudioProps> = ({ initialImageSrc }) => {
                 </div>
               </div>
 
-              <div className="flex items-center justify-between">
-                <span className="text-xs font-mono text-[#8F9B95]">Watermark Stamp:</span>
-                <button
-                  onClick={() => setShowWatermark(!showWatermark)}
-                  className={`px-2.5 py-1 rounded text-xs font-mono cursor-pointer transition-colors ${
-                    showWatermark ? 'bg-[#151817] text-[#0DF569] border border-[#0DF569]/40' : 'bg-[#090A0A] text-[#697570]'
-                  }`}
-                >
-                  {showWatermark ? '✓ ENABLED' : 'DISABLED'}
-                </button>
+              <div>
+                <label className="block text-[11px] font-mono text-[#6C7699] mb-1.5">
+                  FONT SIZE ({fontSize}px)
+                </label>
+                <input
+                  type="range"
+                  min="24"
+                  max="60"
+                  value={fontSize}
+                  onChange={(e) => setFontSize(Number(e.target.value))}
+                  className="w-full accent-[#14F195] cursor-pointer mt-1"
+                />
               </div>
             </div>
 
-            {/* Download Button */}
-            <button
-              onClick={handleDownloadMeme}
-              disabled={isExporting}
-              className="w-full py-3 bg-[#0DF569] hover:bg-[#00E05B] text-[#090A0A] font-bold text-xs rounded-lg transition-all active:scale-[0.98] shadow-[0_0_20px_rgba(13,245,105,0.25)] flex items-center justify-center gap-2 cursor-pointer"
-            >
-              <Download className="w-4 h-4" />
-              <span>{isExporting ? 'Generating PNG...' : 'Export Meme (High-Res PNG)'}</span>
-            </button>
+            {/* Watermark Toggle */}
+            <div className="flex items-center justify-between text-xs pt-1 font-mono text-[#8F98BA]">
+              <span>Include Solana / Pump.fun Stamp</span>
+              <button
+                onClick={() => setShowWatermark(!showWatermark)}
+                className={`w-9 h-5 rounded-full transition-colors relative cursor-pointer ${
+                  showWatermark ? 'bg-[#14F195]' : 'bg-[#1E2542]'
+                }`}
+              >
+                <span
+                  className={`absolute top-0.5 w-4 h-4 rounded-full bg-[#07080E] transition-transform ${
+                    showWatermark ? 'left-4.5' : 'left-0.5'
+                  }`}
+                />
+              </button>
+            </div>
+
+            {/* Download Button with Pump.fun Styling */}
+            <div className="pt-2">
+              <button
+                onClick={handleDownloadMeme}
+                className="w-full py-3 bg-gradient-to-r from-[#10B981] via-[#14F195] to-[#86EFAC] hover:opacity-95 text-[#06281E] font-bold text-xs uppercase tracking-wider rounded-lg transition-all flex items-center justify-center gap-2 cursor-pointer shadow-[0_0_20px_rgba(20,241,149,0.3)] active:scale-[0.98]"
+              >
+                {isExporting ? (
+                  <>
+                    <RefreshCw className="w-4 h-4 animate-spin text-[#06281E]" />
+                    <span>Rendering PNG...</span>
+                  </>
+                ) : (
+                  <>
+                    <Download className="w-4 h-4 text-[#06281E]" />
+                    <span>Export High-Res PNG Meme</span>
+                  </>
+                )}
+              </button>
+            </div>
 
           </div>
 
-          {/* Canvas Preview Stage (Right) */}
-          <div className="lg:col-span-7 flex flex-col items-center">
-            <div className="relative bg-[#090A0A] border border-[#1C201F] rounded-xl p-3 shadow-2xl max-w-lg w-full overflow-hidden">
-              <div className="flex items-center justify-between pb-2 px-1 text-xs font-mono text-[#697570] border-b border-[#1C201F] mb-3">
-                <span>MEME_CANVAS_800X800</span>
-                <span className="text-[#0DF569]">READY FOR VIRAL DISTRIBUTION</span>
+          {/* Live Canvas Column */}
+          <div className="lg:col-span-7 bg-[#0B0E1C] border border-[#1E2542] rounded-xl p-4 shadow-2xl">
+            <div className="flex items-center justify-between pb-3 px-1 border-b border-[#1E2542]">
+              <div className="flex items-center gap-2">
+                <NullCrestSymbol size={18} glow={false} />
+                <span className="text-xs font-mono text-[#8F98BA]">CANVAS PREVIEW · 800×800PX</span>
               </div>
+              <div className="flex items-center gap-2">
+                <span className="text-[11px] font-mono text-[#10B981] flex items-center gap-1">
+                  <PumpFunLogo size={12} />
+                  <span>Pump.fun Ready</span>
+                </span>
+              </div>
+            </div>
 
-              {/* The Live HTML5 Canvas */}
-              <div className="relative aspect-square w-full rounded-lg overflow-hidden bg-[#090A0A]">
-                <canvas
-                  ref={canvasRef}
-                  className="w-full h-full object-contain select-none"
-                />
-              </div>
+            <div className="mt-4 relative aspect-square max-w-lg mx-auto bg-[#07080E] rounded-lg overflow-hidden border border-[#1E2542] shadow-inner flex items-center justify-center">
+              <canvas
+                ref={canvasRef}
+                className="w-full h-full object-contain"
+              />
+            </div>
 
-              <div className="pt-3 px-1 flex items-center justify-between text-[11px] font-mono text-[#8F9B95]">
-                <span>MEME FORMAT: CALM CHAOS</span>
-                <span>ORIGINAL IP · UNFORGETTABLE PRESENCE</span>
-              </div>
+            <div className="mt-3 flex items-center justify-between text-xs font-mono text-[#6C7699] px-2">
+              <span>FORMAT: 800×800 PNG · 300 DPI</span>
+              <span>CALM CHAOS ENGINE</span>
             </div>
           </div>
 

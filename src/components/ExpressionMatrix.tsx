@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { CHARACTER_EXPRESSIONS, ASSET_PATHS } from '../data/characterData';
-import { TraceVectorAvatar } from './SvgAssets';
+import { TraceVectorAvatar, SolanaLogo, PumpFunLogo } from './SvgAssets';
 import { TraceImage } from './TraceImage';
 import { Smile, MessageSquare, Sparkles, CheckCircle2 } from 'lucide-react';
 
@@ -12,23 +12,24 @@ export const ExpressionMatrix: React.FC = () => {
     CHARACTER_EXPRESSIONS[1];
 
   return (
-    <section className="py-12 border-b border-[#1C201F]">
+    <section className="py-12 border-b border-[#1A1E30] bg-[#07080E]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
         
         {/* Section Header */}
         <div>
-          <div className="flex items-center gap-2 text-xs font-mono text-[#8F9B95] tracking-wider uppercase mb-1">
-            <span>Section 25 & 26 Protocol</span>
-            <span aria-hidden="true" className="text-[#0DF569]">·</span>
+          <div className="flex items-center gap-2 text-xs font-mono text-[#8F98BA] tracking-wider uppercase mb-1">
+            <SolanaLogo size={14} />
+            <span>Solana Ocular Protocol</span>
+            <span aria-hidden="true" className="text-[#9945FF]">·</span>
             <span>8-State Expression Reference</span>
           </div>
           <h2
-            className="text-3xl sm:text-4xl font-extrabold text-[#EDECE8] tracking-tight"
+            className="text-3xl sm:text-4xl font-extrabold text-[#E4E7F5] tracking-tight"
             style={{ fontFamily: "'Syne', sans-serif" }}
           >
             The Expression Matrix
           </h2>
-          <p className="text-[#8F9B95] text-sm mt-1 max-w-2xl">
+          <p className="text-[#8F98BA] text-sm mt-1 max-w-2xl">
             Controlled micro-expressions maintaining TRACE’s signature deadpan mystery. The humor emerges through context and calm chaos, never through exaggerated cartoon silliness.
           </p>
         </div>
@@ -43,20 +44,20 @@ export const ExpressionMatrix: React.FC = () => {
                 onClick={() => setSelectedExpId(exp.id)}
                 className={`p-3 rounded-xl border text-left transition-all cursor-pointer flex flex-col justify-between min-h-[110px] ${
                   isSelected
-                    ? 'bg-[#151817] border-[#0DF569] shadow-[0_0_15px_rgba(13,245,105,0.15)] ring-1 ring-[#0DF569]'
-                    : 'bg-[#111413] border-[#1C201F] hover:border-[#28302D] hover:bg-[#141816]'
+                    ? 'bg-[#121629] border-[#14F195] shadow-[0_0_15px_rgba(20,241,149,0.25)] ring-1 ring-[#14F195]'
+                    : 'bg-[#0B0E1C] border-[#1E2542] hover:border-[#2A345C] hover:bg-[#121629]'
                 }`}
               >
                 <div>
                   <div className="flex items-center justify-between mb-1">
-                    <span className="text-[10px] font-mono text-[#697570]">{exp.code}</span>
-                    {isSelected && <span className="w-1.5 h-1.5 rounded-full bg-[#0DF569]" />}
+                    <span className="text-[10px] font-mono text-[#6C7699]">{exp.code}</span>
+                    {isSelected && <span className="w-1.5 h-1.5 rounded-full bg-[#14F195]" />}
                   </div>
-                  <span className={`text-xs font-bold block ${isSelected ? 'text-[#0DF569]' : 'text-[#EDECE8]'}`}>
+                  <span className={`text-xs font-bold block ${isSelected ? 'text-[#14F195]' : 'text-[#E4E7F5]'}`}>
                     {exp.name}
                   </span>
                 </div>
-                <span className="text-[11px] font-mono text-[#8F9B95] mt-2 italic">
+                <span className="text-[11px] font-mono text-[#8F98BA] mt-2 italic">
                   {exp.quote}
                 </span>
               </button>
@@ -64,71 +65,58 @@ export const ExpressionMatrix: React.FC = () => {
           })}
         </div>
 
-        {/* Active Expression Spotlight Stage */}
-        <div className="bg-[#111413] border border-[#1C201F] rounded-xl p-6 lg:p-8">
+        {/* Deep Dive into Active Expression */}
+        <div className="bg-[#0B0E1C] border border-[#1E2542] rounded-xl p-6 lg:p-8 shadow-xl">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
             
-            {/* Visual Portrait Rendering */}
-            <div className="lg:col-span-5 bg-[#090A0A] border border-[#1C201F] rounded-xl p-6 flex flex-col items-center justify-center relative min-h-[340px]">
-              <div className="relative w-56 h-56 rounded-xl overflow-hidden border border-[#28302D] shadow-2xl">
-                <TraceImage
-                  src={ASSET_PATHS.portrait}
-                  alt={activeExp.name}
-                  className="w-full h-full"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#090A0A] via-transparent to-transparent opacity-60 pointer-events-none" />
-                <div className="absolute bottom-3 left-3 right-3 text-center pointer-events-none">
-                  <span className="px-2.5 py-1 bg-[#090A0A]/90 backdrop-blur-md rounded border border-[#0DF569]/30 text-xs font-mono text-[#0DF569]">
-                    {activeExp.quote}
-                  </span>
-                </div>
+            {/* Expression Avatar Display */}
+            <div className="lg:col-span-5 bg-[#07080E] border border-[#1E2542] rounded-xl p-6 flex flex-col items-center justify-center relative min-h-[320px]">
+              <div className="relative w-48 h-48 rounded-2xl overflow-hidden border border-[#232B4C] bg-[#07080E] shadow-2xl flex items-center justify-center">
+                <TraceVectorAvatar size={180} glow={true} />
               </div>
 
-              <div className="mt-4 flex items-center gap-2 text-xs font-mono text-[#697570]">
-                <span>OCULAR STATE:</span>
-                <span className="text-[#0DF569]">{activeExp.eyeLuminance}</span>
+              <div className="mt-4 px-3 py-1.5 bg-[#121629] rounded border border-[#1E2542] text-xs font-mono text-[#14F195]">
+                {activeExp.code} · {activeExp.name.toUpperCase()}
               </div>
             </div>
 
-            {/* Expression Specification Details */}
-            <div className="lg:col-span-7 space-y-5">
-              <div>
-                <span className="text-xs font-mono text-[#0DF569] tracking-wider uppercase">
-                  {activeExp.code} · FACIAL MECHANICS
+            {/* Expression Analysis */}
+            <div className="lg:col-span-7 space-y-4">
+              <div className="flex items-center justify-between">
+                <span className="text-xs font-mono text-[#14F195] tracking-wider uppercase">
+                  CANONICAL BEHAVIOR PROFILE
                 </span>
-                <h3 className="text-2xl font-bold text-[#EDECE8] mt-1">
-                  {activeExp.name}
-                </h3>
-                <p className="text-sm text-[#8F9B95] mt-2 leading-relaxed">
-                  {activeExp.description}
-                </p>
+                <span className="text-xl font-mono text-[#E4E7F5] font-bold">
+                  {activeExp.quote}
+                </span>
               </div>
 
-              {/* Technical Breakdown */}
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 border-t border-b border-[#1C201F] py-4 text-xs">
-                <div>
-                  <span className="text-[#697570] font-mono block mb-1">Brow Vector</span>
-                  <span className="text-[#EDECE8] font-semibold">{activeExp.browAngle}</span>
+              <h3 className="text-2xl font-bold text-[#E4E7F5]">
+                {activeExp.name}
+              </h3>
+
+              <p className="text-sm text-[#8F98BA] leading-relaxed">
+                {activeExp.description}
+              </p>
+
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2">
+                <div className="p-3 bg-[#07080E] rounded-lg border border-[#1E2542] text-xs font-mono">
+                  <span className="text-[#6C7699] block mb-1">BROW GEOMETRY</span>
+                  <span className="text-[#E4E7F5] font-semibold">{activeExp.browAngle}</span>
                 </div>
-                <div>
-                  <span className="text-[#697570] font-mono block mb-1">Eye Glow Intensity</span>
-                  <span className="text-[#0DF569] font-semibold">{activeExp.eyeLuminance}</span>
+                <div className="p-3 bg-[#07080E] rounded-lg border border-[#1E2542] text-xs font-mono">
+                  <span className="text-[#6C7699] block mb-1">SOLANA OCULAR FLUX</span>
+                  <span className="text-[#14F195] font-semibold">{activeExp.eyeLuminance}</span>
                 </div>
-                <div>
-                  <span className="text-[#697570] font-mono block mb-1">Lower Jaw Profile</span>
-                  <span className="text-[#EDECE8] font-semibold">{activeExp.mouthExpression}</span>
+                <div className="p-3 bg-[#07080E] rounded-lg border border-[#1E2542] text-xs font-mono">
+                  <span className="text-[#6C7699] block mb-1">MOUTH APERTURE</span>
+                  <span className="text-[#E4E7F5] font-semibold">{activeExp.mouthExpression}</span>
                 </div>
               </div>
 
-              {/* Meme & Humor In Context */}
-              <div className="p-4 bg-[#090A0A] border border-[#1C201F] rounded-lg space-y-1.5">
-                <div className="flex items-center gap-2 text-xs font-mono text-[#EDECE8]">
-                  <MessageSquare className="w-3.5 h-3.5 text-[#0DF569]" />
-                  <span className="font-bold">Meme Context In The Wild:</span>
-                </div>
-                <p className="text-xs text-[#8F9B95] leading-relaxed">
-                  {activeExp.humorContext}
-                </p>
+              <div className="pt-2 border-t border-[#1E2542] text-xs text-[#8F98BA]">
+                <strong className="text-[#14F195]">Meme / Telegram Context: </strong>
+                <span>{activeExp.humorContext}</span>
               </div>
             </div>
 

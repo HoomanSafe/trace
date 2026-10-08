@@ -35,7 +35,7 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-[#090A0A] text-[#EDECE8] flex flex-col font-sans selection:bg-[#0DF569]/30 selection:text-[#0DF569]">
+    <div className="min-h-screen bg-[#07080E] text-[#EDECE8] flex flex-col font-sans selection:bg-[#14F195]/30 selection:text-[#14F195]">
       {/* Top Bar Contract compliant Navbar */}
       <Navbar
         activeTab={activeTab}
